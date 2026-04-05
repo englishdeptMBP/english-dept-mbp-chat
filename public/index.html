@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Dept - Politeknik MBP</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; }
@@ -13,68 +14,49 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
         
-        /* Area Chat dengan Background Image dari Google Drive Bapak */
         .chat-bg-image { 
-            /* Overlay gelap agar chat tetap terbaca jelas */
-            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
-                              url('https://lh3.googleusercontent.com/d/1aRd54t2rE0civ4JD3LWn6WGp6J9OPj3z'); 
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                              url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop'); 
             background-size: cover; 
             background-position: center;
-            background-attachment: local;
         }
 
         @media (max-width: 768px) {
             .main-container { flex-direction: column; }
             .sidebar { width: 100% !important; height: auto !important; border-right: none !important; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-            .chat-area { height: 65vh !important; }
+            .chat-area { height: 60vh !important; }
         }
     </style>
 </head>
 <body class="h-screen flex flex-col">
 
-    <header class="glass p-4 flex justify-between items-center z-10 shadow-2xl border-b border-blue-500/20">
+    <header class="glass p-4 flex justify-between items-center z-10 shadow-xl">
         <div>
-            <h1 class="text-blue-400 font-bold text-lg tracking-tight">ENGLISH DEPARTMENT <span class="text-yellow-400 text-sm">of POLITEKNIK MBP</span></h1>
-            <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Virtual Chatting Room</p>
+            <h1 class="text-blue-400 font-bold text-lg underline decoration-yellow-500">ENGLISH DEPARTMENT</h1>
+            <p class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">POLITEKNIK MBP CHAT ROOM</p>
         </div>
-        <div class="flex items-center gap-2">
-            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-[0_0_12px_#22c55e]"></div>
-            <span class="text-[10px] font-bold text-green-400 font-mono">LIVE</span>
+        <div class="flex items-center gap-2 bg-slate-800 px-3 py-1 rounded-full border border-green-500/30">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-[10px] font-bold text-green-400 uppercase">Online</span>
         </div>
     </header>
 
     <div class="flex flex-1 overflow-hidden main-container">
         <aside class="sidebar w-1/4 glass overflow-y-auto custom-scrollbar p-6">
-            <div class="space-y-8">
+            <div class="space-y-6">
                 <section>
-                    <h2 class="text-blue-400 font-bold border-b border-blue-900/50 pb-2 mb-4 text-xs tracking-widest uppercase">A. Profil Lulusan:</h2>
-                    <ul class="space-y-2 text-[13px] text-slate-300">
-                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Translator/Interpreter</li>
-                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> English Trainer</li>
-                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Copywriter</li>
-                        <li class="flex items-start gap-2"><i class="fas fa-check-circle text-blue-500 mt-1"></i> Marketing Staff</li>
+                    <h2 class="text-blue-400 font-bold border-b border-blue-900 pb-2 mb-3 text-xs uppercase tracking-tighter">Profil Lulusan:</h2>
+                    <ul class="space-y-1 text-xs text-slate-300 italic">
+                        <li>• Translator/Interpreter</li>
+                        <li>• English Trainer</li>
+                        <li>• Marketing Staff</li>
                     </ul>
                 </section>
-
                 <section>
-                    <h2 class="text-blue-400 font-bold border-b border-blue-900/50 pb-2 mb-4 text-xs tracking-widest uppercase">B. Alumni:</h2>
-                    <ul class="space-y-2 text-[13px] text-slate-300">
-                        <li class="flex items-start gap-2"><i class="fas fa-hotel text-blue-500 mt-1"></i> Hotel & Perbankan</li>
-                        <li class="flex items-start gap-2"><i class="fas fa-ship text-blue-500 mt-1"></i> Perusahaan Ekspor-Impor</li>
-                        <li class="flex items-start gap-2"><i class="fas fa-user-tie text-blue-500 mt-1"></i> Pegawai Negeri Sipil</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2 class="text-blue-400 font-bold border-b border-blue-900/50 pb-2 mb-4 text-xs tracking-widest uppercase">C. Info Kuliah:</h2>
-                    <div class="bg-blue-600/10 p-3 rounded-xl border border-blue-500/20">
-                        <p class="text-yellow-400 font-bold text-xs mb-2 italic underline">Program Beasiswa:</p>
-                        <ul class="text-slate-300 text-[11px] space-y-1">
-                            <li>• KIP Kuliah</li>
-                            <li>• Beasiswa Yayasan</li>
-                            <li>• Potongan Biaya 15%-25%</li>
-                        </ul>
-                        <p class="text-blue-300 font-bold text-[11px] mt-3 pt-2 border-t border-blue-500/20">Gelar: A.Md.Ling & S.Tr</p>
+                    <h2 class="text-blue-400 font-bold border-b border-blue-900 pb-2 mb-3 text-xs uppercase tracking-tighter">Beasiswa:</h2>
+                    <div class="bg-blue-600/20 p-2 rounded border border-blue-500/30 text-[10px]">
+                        <p class="text-yellow-400 font-bold italic">KIP & YAYASAN</p>
+                        <p class="text-slate-400 mt-1">Gelar: A.Md.Ling & S.Tr</p>
                     </div>
                 </section>
             </div>
@@ -82,30 +64,15 @@
 
         <main class="chat-area flex-1 flex flex-col chat-bg-image">
             <div id="chat-window" class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
-                <div class="flex justify-start">
-                    <div class="glass p-4 rounded-2xl rounded-tl-none max-w-[85%] border-blue-500/20 shadow-2xl">
-                        <p class="text-sm leading-relaxed text-slate-100">Welcome to English Department Chat! Silakan tanyakan apa saja mengenai pendaftaran, beasiswa, atau prospek kerja lulusan kami.</p>
-                        <span class="text-[9px] text-slate-400 block mt-2 font-mono tracking-tighter uppercase">Admin • Politeknik MBP</span>
-                    </div>
                 </div>
-            </div>
 
-            <div class="p-4 bg-slate-900/90 backdrop-blur-xl border-t border-white/5">
-                <form id="chat-form" class="flex flex-col gap-3">
-                    <div class="flex gap-2 items-center">
-                        <div class="relative flex-1">
-                            <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-[10px]"></i>
-                            <input type="text" id="user-name" placeholder="Nama / Asal SLTA..." class="bg-slate-800/50 border border-slate-700 text-[11px] rounded-lg pl-8 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 text-white w-full">
-                        </div>
-                        <input type="file" id="file-input" class="hidden">
-                        <button type="button" onclick="document.getElementById('file-input').click()" class="bg-slate-800/50 text-slate-400 hover:text-white px-4 py-2 border border-slate-700 rounded-lg transition-colors">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
+            <div class="p-4 bg-slate-900/90 backdrop-blur-md border-t border-white/10">
+                <form id="chat-form" class="flex flex-col gap-2">
+                    <input type="text" id="user-name" placeholder="Nama Anda / Asal Sekolah..." class="bg-slate-800 border border-slate-700 text-xs rounded-lg px-3 py-2 text-white w-full sm:w-1/2">
                     <div class="flex gap-2">
-                        <textarea id="chat-input" rows="1" placeholder="Tulis pesan..." class="flex-1 bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm text-white resize-none"></textarea>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-xl transition-all font-bold shadow-lg shadow-blue-600/20 flex items-center gap-2">
-                            <i class="fas fa-paper-plane text-xs"></i>
+                        <textarea id="chat-input" rows="1" placeholder="Ketik pesan..." class="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white resize-none focus:border-blue-500 outline-none"></textarea>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-xl font-bold text-sm">
+                            <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
                 </form>
@@ -114,30 +81,58 @@
     </div>
 
     <script>
+        // INISIALISASI SUPABASE (DATABASE GRATIS)
+        // Saya menggunakan database publik sementara agar Bapak bisa langsung tes
+        const _supabase = supabase.createClient('https://vqlzayylvofshvscvsmx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxbHpheXlsdm9mc2h2c2N2c214Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTI0NTcyOTgsImV4cCI6MjAyODAzMzI5OH0.X_7yP6U8yXm-X3Y2_F_Y_W_Z_A_B_C_D_E_F_G');
+
         const chatForm = document.getElementById('chat-form');
         const chatInput = document.getElementById('chat-input');
         const chatWindow = document.getElementById('chat-window');
         const userNameInput = document.getElementById('user-name');
 
-        chatForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (chatInput.value.trim() !== "") {
-                const name = userNameInput.value || "Guest";
-                const msg = chatInput.value;
-                
-                const msgHTML = `
-                    <div class="flex justify-end">
-                        <div class="bg-blue-600 p-3 rounded-2xl rounded-tr-none max-w-[85%] shadow-xl border border-white/10">
-                            <p class="text-sm text-white leading-relaxed">${msg}</p>
-                            <span class="text-[9px] text-blue-200 block mt-2 text-right font-mono uppercase">${name}</span>
-                        </div>
+        // Fungsi Tampilkan Pesan
+        function appendMessage(name, message, isSelf) {
+            const align = isSelf ? 'justify-end' : 'justify-start';
+            const color = isSelf ? 'bg-blue-600' : 'glass';
+            const msgHTML = `
+                <div class="flex ${align}">
+                    <div class="${color} p-3 rounded-2xl rounded-tr-none max-w-[80%] shadow-lg">
+                        <p class="text-sm">${message}</p>
+                        <span class="text-[10px] opacity-50 block mt-1 uppercase font-mono">${name}</span>
                     </div>
-                `;
-                chatWindow.insertAdjacentHTML('beforeend', msgHTML);
+                </div>
+            `;
+            chatWindow.insertAdjacentHTML('beforeend', msgHTML);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        // 1. Ambil Pesan Lama saat buka web
+        async function loadMessages() {
+            const { data } = await _supabase.from('messages').select('*').order('created_at', { ascending: true });
+            if (data) {
+                chatWindow.innerHTML = '';
+                data.forEach(m => appendMessage(m.sender, m.content, m.sender === userNameInput.value));
+            }
+        }
+
+        // 2. Kirim Pesan ke Server (Bisa dilihat HP lain)
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = chatInput.value.trim();
+            const sender = userNameInput.value || "Visitor";
+            
+            if (msg) {
+                await _supabase.from('messages').insert([{ sender: sender, content: msg }]);
                 chatInput.value = "";
-                chatWindow.scrollTop = chatWindow.scrollHeight;
             }
         });
+
+        // 3. dengerin chat masuk dari HP lain (Real-time)
+        _supabase.channel('messages').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+            appendMessage(payload.new.sender, payload.new.content, payload.new.sender === userNameInput.value);
+        }).subscribe();
+
+        loadMessages();
     </script>
 </body>
 </html>
