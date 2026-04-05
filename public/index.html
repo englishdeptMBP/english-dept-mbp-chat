@@ -12,11 +12,16 @@
         .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        
+        /* PENGATURAN LATAR BELAKANG BARU */
         .chat-bg-image { 
-            background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), 
-                              url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop'); 
-            background-size: cover; background-position: center;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), 
+                              url('https://lh3.googleusercontent.com/u/0/d/1aRd54t2rE0civ4JD3LWn6WGp6J9OPj3z'); 
+            background-size: cover; 
+            background-position: center;
+            background-attachment: fixed;
         }
+
         @media (max-width: 768px) {
             body { overflow: auto; }
             .main-container { flex-direction: column; height: auto; }
@@ -101,14 +106,12 @@
         }
 
         async function init() {
-            // 1. Ambil pesan lama
             const { data } = await _supabase.from('messages').select('*').order('created_at', { ascending: true });
             if (data) {
-                chatWindow.innerHTML = ''; // Kosongkan dulu
+                chatWindow.innerHTML = '';
                 data.forEach(m => renderMsg(m.sender, m.content, m.sender === (userNameInput.value || "Visitor")));
             }
 
-            // 2. Pasang Listener Realtime
             _supabase.channel('room1').on('postgres_changes', 
                 { event: 'INSERT', schema: 'public', table: 'messages' }, 
                 payload => {
@@ -128,7 +131,7 @@
             if (!error) chatInput.value = "";
         });
 
-        init();
+            init();
     </script>
 </body>
 </html>
